@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="png" href="/images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <title>2 CSE</title>
+</head>
+<body>
+    <header>
+        <img src="/images/logo.png" alt="LOGO" class="logo">
+        <h1 class="header-text"><b>SRI SHAKTHI INSTITUTE OF ENGINEERING AND TECHNOLOGY</b></h1>
+        <img src="/images/Naac logo" alt="Naac" class="logo">
+    </header>
+    <nav>
+        <div id="datecal">
+            <a href="/Departments/cse/csechoose.html"><img src="/images/back.png" id="back"></a>       
+            <a href="/home.html"><img src="/images/home.png" id="home"></a>
+            <p id="date" class="date"></p><br><br>
+        </div>
+    </nav>
+    <div id="user">
+        <label for="username">Enter Your register Number:</label>
+        <input type="text" id="username" required>
+    </div><br>
+    <div id="div"><br></div><br>
+
+    <div id="button">
+        <button class="button1" id="calculate" onclick="updateDisplay()">Calculate</button>
+        <div>
+            <h2><span id="output"></span></h2>
+        </div>    
+    </div><br>
+    <div><center>
+    <button onclick="downloadFancyPDF()" class="button1">Download PDF</button>
+    </center></div><br>
+    <footer>
+        <p>Help desk.siet.ac.in</p>
+    </footer><br>
+
+    <script>
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        document.getElementById("date").innerText = new Date().toLocaleDateString("en-GB", options);
+
+        const subjects = [
+            { id: "english", label: "Applied English Skills (21EN201)", credit: 3 },
+            { id: "maths", label: "Laplace Transforms and Advanced Calculus for Food Technologists (21MA208)", credit: 3 },
+            { id: "pds", label: "Programming in C and Data Structures (21CS201)", credit: 3 },
+            { id: "fbhn", label: "Food Biochemistry and Human Nutrition (21FT201)", credit: 3 },
+            { id: "fm", label: "Food Microbiology (21FT202)", credit: 3 },
+            { id: "ee2", label: "Engineering Exploration-II (21CS211)", credit: 2 },
+            { id: "pdslab", label: "Programming in C and Data Structures Laboratory (21CS212)", credit: 1 },
+            { id: "fblab", label: "Food Biochemistry Laboratory (21FT212)", credit: 1 },
+            { id: "fmlab", label: "Food Microbiology Laboratory (21FT213)", credit: 1 },
+            { id: "aeal", label: "Automobile  Engine Assembly Laboratory (21ME214)", credit: 2 },
+            { id: "physics", label: "Applied Physics (21PH221)", credit: 1 },
+            { id: "tamil", label: "Tamils and Technology (21EC213)", credit: 1 },
+            { id: "economics", label: "Engineering Economics (21MG101)", credit: 2 }
+        ];
+
+        const gradeOptions = [
+            { value: "", text: "Select", disabled: true, selected: true },
+            { value: "10", text: "O" },
+            { value: "9", text: "A+" },
+            { value: "8", text: "A" },
+            { value: "7", text: "B+" },
+            { value: "6", text: "B" },
+            { value: "5", text: "C+" },
+            { value: "4", text: "C" },
+            { value: "3", text: "D" },
+            { value: "2", text: "D+" },
+            { value: "0", text: "RA" }
+        ];
+
+        const container = document.getElementById("div");
+
+        // creating fields
+        subjects.forEach(subject => {
+            const div = document.createElement("div");
+            div.id = "cal";
+
+            const label = document.createElement("label");
+            label.setAttribute("for", subject.id);
+            label.textContent = subject.label;
+
+            const select = document.createElement("select");
+            select.id = subject.id;
+            select.className = "align";
+            select.required = true;
+
+            gradeOptions.forEach(opt => {
+                const option = document.createElement("option");
+                option.value = opt.value;
+                option.textContent = opt.text;
+                if (opt.disabled) option.disabled = true;
+                if (opt.selected) option.selected = true;
+                select.appendChild(option);
+            });
+
+            div.appendChild(label);
+            div.appendChild(select);
+            container.appendChild(div);
+            container.appendChild(document.createElement("br"));
+        });
+
+    //to calculate CGPA
+    async function updateDisplay() {
+    const username = document.getElementById("username").value.trim();
+    if (username.length !== 12) {
+        alert("Enter a valid register number");
+        return;
+    }
+
+    const formValid = [...document.querySelectorAll("select")].every(select => select.checkValidity());
+
+    if (!formValid) {
+        //popup
+        document.querySelector("select:invalid").reportValidity();
+        return;
+    }
+
+    let totalCredits = 0;
+    let weightedGradeSum = 0;
+    let grades = {};
+
+    subjects.forEach(subject => {
+        const grade = parseInt(document.getElementById(subject.id).value);
+        weightedGradeSum += grade * subject.credit;
+        totalCredits += subject.credit;
+        grades[subject.label] = grade;
+    });
+
+    const cgpa = (weightedGradeSum / totalCredits).toFixed(3);
+    document.getElementById("output").textContent = `Your CGPA is: ${cgpa}`;
+
+    const title = document.title;
+
+    // Send data to backend
+    try {
+        const response = await fetch('/submit-cgpa', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, username, grades, cgpa })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    } catch (error) {
+        alert("Error submitting data. Try again.");
+        console.error(error);
+    }
+}
+
+async function downloadFancyPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const username = document.getElementById("username").value.trim();
+    if (!username || username.length !== 12) {
+        alert("Please enter a valid 12-digit register number.");
+        return;
+    }
+
+    // spliting title
+    const title = document.title;
+    const [semester, dept] = title.split(" ");
+    const cgpaText = document.getElementById("output").textContent;
+    const semesterLabel = `Semester: ${semester}`;
+    const deptLabel = `Degree & Department: ${dept}`;
+
+    // table data
+    const tableData = subjects.map(subject => {
+    const select = document.getElementById(subject.id);
+    const gradePoint = select.value;
+    const gradeText = select.options[select.selectedIndex].text;
+    const credit = subject.credit;
+
+    return [
+        subject.label,
+        gradeText,
+        gradePoint,
+        credit
+    ];
+});
+
+    // header images
+    const logoUrl = "/images/logo.png";
+    const logoSize = 20;
+    const logo1Url = "/images/1.png";
+    const logoS1ize = 20;
+
+    const imageToBase64 = (url) =>
+        new Promise((resolve) => {
+            const img = new Image();
+            img.setAttribute("crossOrigin", "anonymous");
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                canvas.getContext("2d").drawImage(img, 0, 0);
+                resolve(canvas.toDataURL("image/png"));
+            };
+            img.src = url;
+        });
+
+    const logoBase64 = await imageToBase64(logoUrl);
+    const logo1Base64 = await imageToBase64(logo1Url);
+
+    // Left logo
+    doc.addImage(logoBase64, 'PNG', 10, 10, logoSize, logoSize);
+    // Right logo
+    doc.addImage(logo1Base64, 'PNG', 180, 10, logoSize, logoSize);
+
+    // Title text
+    doc.setFontSize(16);
+    doc.setFont(undefined, 'bold');
+    doc.text("Sri Shakthi Institute of Engineering and Technology\n(An Autonomous Institution)", 105, 20, { align: "center" });
+    
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'normal');
+    doc.text(deptLabel, 105, 38, { align: "center" });
+    doc.text("Regulation: 2021", 105, 45, { align: "center" });
+    doc.text(semesterLabel, 105, 52, { align: "center" });
+    doc.text(`Register Number: ${username}`, 105, 59, { align: "center" });
+
+    // Table
+    doc.autoTable({
+    startY: 69, // should be below the header
+    head: [['Subject', 'Grade (Letter)', 'Grade (Point)', 'Credit']],
+    body: tableData,
+    theme: 'grid',
+    headStyles: {
+        fillColor: [82, 236, 31],
+        textColor: 0,
+        fontStyle: 'bold',
+        lineWidth: 0.5, 
+        lineColor: [0, 0, 0]
+    },
+    bodyStyles: {
+        lineWidth: 0.5, 
+        lineColor: [0, 0, 0]
+    },
+    styles: {
+        fontSize: 10,
+        textColor: [0, 0, 0]
+    },
+});
+
+    const finalY = doc.lastAutoTable.finalY + 10;
+    doc.setFontSize(13);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text(`${cgpaText}`, 105, finalY, { align: "center" });
+    
+    doc.save(`${username}_CGPA_Report.pdf`);
+}
+    </script>
+</body>
+</html>

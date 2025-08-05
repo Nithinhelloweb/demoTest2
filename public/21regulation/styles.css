@@ -1,0 +1,217 @@
+header {
+    text-align: center;
+    align-items: center;
+    font-size: x-small;
+    font-family: sans-serif;
+    color: rgb(0, 128, 0);
+    background-color: rgb(218, 242, 5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 3px 10px;
+    border-radius: 10px;
+    display: flex;
+    width: auto;
+    margin: auto;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+.header-text {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #005500;
+    flex: 1;
+}
+
+@keyframes changeColor {
+    0% { background-color: rgb(82, 236, 31); }
+    25% { background-color: rgb(48, 221, 97); }
+    50% { background-color: rgb(56, 219, 56); }
+    75% { background-color: rgb(110, 223, 69); }
+    100% { background-color: rgb(87, 231, 15); }
+}
+
+#datecal {
+    padding: 5px;
+    color: #ffffff;
+    animation: changeColor 5s infinite;
+    width: 250; 
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    align-self: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#back {
+    width: 30px;
+    float: left;
+    padding: 2px 0px 0px 10px;
+}
+
+#home {
+    width: 30px;
+    float: left;
+    padding: 2px 0px 0px 20px;
+}
+
+.date {
+    padding: 10px;
+    width: 130px; 
+    margin: auto;
+    border-radius: 10px;
+    float: right;
+}
+
+body {
+    font-family: Sans-Serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#calculator {
+    background-color: #ffffff;
+    padding: 25px 45px 25px 25px;
+    width: 250; 
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    align-self: center;
+}
+
+#cal {
+    background-color: #ffffff;
+    padding: 20px 10px;
+    width: 250; 
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    align-self: center;
+}
+
+.button {
+    background-color: white;
+    color: rgb(29, 59, 5);
+    border: 2px solid rgb(14, 116, 14);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+a:hover, a:active {
+    background-color: rgb(57, 179, 57);
+    color: white;
+}
+
+footer {
+    text-align: center;
+    background-color: rgb(218, 242, 5);
+    padding: 1px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 5px;
+        height: auto;
+    }
+    
+    .header-text{
+        font-size: small;
+    }
+
+    #datecal {
+    padding: 2px;
+    border-radius: 10px;
+    font-size: small;
+    }
+    
+    #back {
+    width: 20px;
+    padding: 5px 0px 0px 10px;
+    }
+
+    #home {
+    width: 20px;
+    padding: 5px 0px 0px 20px;
+    } 
+
+    #icon {
+        margin: 10px;
+    }
+
+    #calculator, #cal {
+        width: 90%;
+        padding: 15px 10px;
+    }
+    
+    .button {
+        width: 85%;
+        font-size: medium;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 788px) {
+    #icon {
+        margin: 10px;
+    }
+    
+    #calculator, #cal {
+        width: 80%;
+        padding: 15px 10px;
+    }
+    .button {
+        width: 70%;
+        font-size: large;
+    }
+}
+
+@media only screen and (min-width: 789px) and (max-width: 910px) {
+    #icon {
+        margin: auto;
+        margin-left: 30px;
+    }
+    
+    #calculator, #cal {
+        width: 80%;
+        padding: 15px 10px;
+    }
+    .button {
+        width: 70%;
+        font-size: large;
+    }
+}
+
+@media only screen and (min-width: 910px) {
+    #icon {
+        margin: auto;
+        margin-left: 30px;
+    }
+    
+    #calculator, #cal {
+        width: 70%;
+        padding: 20px 10px;
+    }
+    .button {
+        width: 70%;
+        font-size: large;
+    }
+    }

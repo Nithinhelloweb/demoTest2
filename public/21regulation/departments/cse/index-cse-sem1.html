@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <title>Sem-1 CSE</title>
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="LOGO" class="logo" />
+    <h1 class="header-text"><b>SRI SHAKTHI INSTITUTE OF ENGINEERING AND TECHNOLOGY</b></h1>
+    <img src="/images/Naac logo" alt="Naac" class="logo" />
+  </header>
+
+  <nav>
+    <div id="datecal">
+      <a href="/Departments/cse/csechoose.html"><img src="/images/back.png" id="back" alt="Back"/></a>
+      <a href="/home.html"><img src="/images/home.png" id="home" alt="Home"/></a>
+      <p id="date" class="date"></p><br><br>
+    </div>
+  </nav>
+
+  <div id="user">
+    <label for="username">Enter Your Register Number:</label>
+    <input type="text" id="username" required />
+    <br><br>
+  <div id="batch-select">
+  <label for="batch">Select Your Batch:</label>
+  <select id="batch" onchange="window.onload()">
+    <option value="" disabled selected>-- Select Batch --</option>
+    <option value="2022-2026">2022–2026</option>
+    <option value="2023-2027">2023–2027</option>
+    <option value="2024-2028">2024–2028</option>
+  </select>
+  </div>
+  </div><br>
+
+  <div id="div"><br></div><br>
+
+  <div id="button">
+    <button class="button1" id="calculate" onclick="updateDisplay()">Calculate</button>
+    <div><h2><span id="output"></span></h2></div>
+  </div><br>
+
+  <div><center>
+    <button onclick="downloadFancyPDF()" class="button1">Download PDF</button>
+  </center></div><br>
+
+  <footer>
+    <p>Help desk.siet.ac.in</p>
+  </footer><br>
+<script src="/21regulation/departments/cse/script.js"></script>
+</body>
+</html>

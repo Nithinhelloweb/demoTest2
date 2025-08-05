@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="png" href="/images/logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <title>CGPA CALCULATOR</title>
+</head>
+<body>
+    <header>
+        <img src="/images/logo.png" alt="LOGO" class="logo">
+        <h1 class="header-text"><b>SRI SHAKTHI INSTITUTE OF ENGINEERING AND TECHNOLOGY</b></h1>
+        <img src="/images/Naac logo" alt="Naac" class="logo">
+    </header>
+  <nav>
+    <div id="datecal">
+      <a href="/Departments/cse/csechoose.html"><img src="/images/back.png" id="back" alt="Back"/></a>
+      <a href="/home.html"><img src="/images/home.png" id="home" alt="Home"/></a>
+      <p id="date" class="date"></p><br><br>
+    </div>
+  </nav>
+    <h3 style="text-align: center;">SGPA CALCULATOR</h3>
+    <div id="calculator">
+        <a class="button" href="/21regulation/departments/cse/semchoose.html" target="_self">Computer Science And Engineering (CSE)</a>
+        <a class="button" href="/Departments/aids/aids.html" target="_self">Artificial Intelligence and Data Science (AIDS)</a>
+        <a class="button" href="/Departments/aiml/aiml.html" target="_self"> Artificial Intelligence and Machine Learning (AIML)</a>
+        <a class="button" href="/Departments/ece/ece.html" target="_self">Electronics and Communication Engineering (ECE)</a>
+        <a class="button" href="/Departments/eee/eee.html" target="_self">Electrical and Electronics Engineering (EEE)</a>
+        <a class="button" href="/Departments/it/it.html" target="_self">Information Technology (IT)</a>
+        <a class="button" href="/Departments/cyber/cyber.html" target="_self">Cyber Security</a>
+        <a class="button" href="/Departments/vlsi/vlsi.html" target="_self">Very Large Scale Integration (VLSI)</a>
+        <a class="button" href="/2024-2028.html/departments/ft/semchoose.html" target="_self">Food Technology</a>
+        <a class="button" href="/Departments/bt/bt.html" target="_self">Bio Technology</a>
+        <a class="button" href="/Departments/mech/mech.html" target="_self">Mechanical Engineering</a>
+        <a class="button" href="/Departments/agri/agri.html" target="_self">Agricultural Engineering</a>
+        <a class="button" href="/Departments/civil/civil.html" target="_self">Civil Engineering</a>
+    </div><br>
+    <footer>
+        <p>Help desk.siet.ac.in</p>
+    </footer>
+    <script>
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        document.getElementById("date").innerText = new Date().toLocaleDateString("en-GB", options);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index page</title>
+</head>
+<body>
+    <a href="demo/index1.0.html">Sem 1</a>
+    <a href="demo/index1.html">Sem 2</a>
+</body>
+</html> -->
